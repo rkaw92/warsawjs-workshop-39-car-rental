@@ -1,0 +1,41 @@
+{
+  "name": "warsawjs-workshop-39-car-rental",
+  "version": "0.1.0",
+  "description": "an example car rental application for learning software design patterns",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "db": "knex migrate:latest && knex seed:run",
+    "test": "echo \"No test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rkaw92/warsawjs-workshop-39-car-rental.git"
+  },
+  "keywords": [
+    "car",
+    "rental",
+    "example",
+    "design",
+    "patterns",
+    "workshop",
+    "training"
+  ],
+  "author": "Robert Kawecki <robert+npm@rkaw.pl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rkaw92/warsawjs-workshop-39-car-rental/issues"
+  },
+  "homepage": "https://github.com/rkaw92/warsawjs-workshop-39-car-rental#readme",
+  "dependencies": {
+    "ejs": "^3.0.1",
+    "fastify": "^2.10.0",
+    "fastify-helmet": "^3.0.2",
+    "fastify-static": "^2.5.0",
+    "knex": "^0.20.3",
+    "pino": "^5.14.0",
+    "pino-pretty": "^3.4.0",
+    "point-of-view": "^3.7.0",
+    "sqlite3": "^4.1.0"
+  }
+}

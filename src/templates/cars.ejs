@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car listing - J.S. Holiday car rentals</title>
+    <%- include('head') %>
+  </head>
+  <body>
+    <main>
+      <table class="pure-table pure-table-striped">
+        <thead>
+          <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Plate</th>
+            <th>Taken?</th>
+            <th>Availability:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let car of cars) { %>
+            <tr>
+              <td><%= car.make %></td>
+              <td><%= car.model %></td>
+              <td><%= car.plate %></td>
+              <td><%= car.rented ? 'taken' : 'free' %></td>
+              <td><%= car.rented ? (new Date(car.rental_end).toString()) : '--' %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
