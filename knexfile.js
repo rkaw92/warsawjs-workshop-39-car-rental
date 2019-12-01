@@ -4,7 +4,9 @@ const path = require('path');
 
 const development = {
   client: 'sqlite3',
-  connection: path.resolve(__dirname, 'rental.db'),
+  connection: {
+    filename: path.resolve(__dirname, 'rental.db')
+  },
   useNullAsDefault: true
 };
 const production = development;
