@@ -9,7 +9,9 @@ const path = require('path');
 const routes = require('./routes');
 
 const app = fastify();
+// Add a security middleware:
 app.register(helmet);
+// Add templating support for response.view support:
 app.register(pov, {
   engine: {
     ejs: ejs
@@ -20,11 +22,13 @@ app.register(pov, {
   },
   includeViewExtension: true
 });
+// Serve assets to the browser:
 app.register(staticPlugin, {
   root: path.resolve(__dirname, '..', 'public'),
   prefix: '/public/'
 })
 
+// The routes are actually route-registering functions. Call each of them:
 for (let installRoute of routes) {
   installRoute(app);
 }
