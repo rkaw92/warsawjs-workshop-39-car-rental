@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Price quotation - J.S. Holiday car rentals</title>
+    <%- include('head') %>
+  </head>
+  <body>
+    <main>
+      <h1>Price calculation result</h1>
+      <p>Generated <%= timestamp.toString() %></p>
+      <section>
+        <h2>Car details</h2>
+        <table class="pure-table">
+          <tbody>
+            <tr><td>Make</td><td><%= car.make %></td></tr>
+            <tr><td>Model</td><td><%= car.model %></td></tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>Rental details</h2>
+        <table class="pure-table">
+          <tbody>
+            <tr><td>Pick-up</td><td><%= rental.date_start.toString() %></td></tr>
+            <tr><td>Drop-off</td><td><%= rental.date_end.toString() %></td></tr>
+            <tr><td>Days billable</td><td><%= rental.days %></td></tr>
+            <tr><td>Total price</td><td><%= price.amount %>&nbsp;<%= price.currency %></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>

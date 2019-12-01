@@ -11,6 +11,8 @@ module.exports.seed = async function(knex) {
       make: 'Ford',
       model: 'Taurus',
       plate: 'JS123OK',
+      list_price_amount: 50,
+      list_price_currency: 'USD',
       rented: false
     },
     {
@@ -18,6 +20,8 @@ module.exports.seed = async function(knex) {
       make: 'Ford',
       model: 'Taurus',
       plate: 'JS555UU',
+      list_price_amount: 50,
+      list_price_currency: 'USD',
       rented: false,
     },
     {
@@ -25,6 +29,8 @@ module.exports.seed = async function(knex) {
       make: 'Honda',
       model: 'Civic Type R',
       plate: 'JS15FAST',
+      list_price_amount: 120,
+      list_price_currency: 'USD',
       rented: true,
       rental_id: 1
     }

@@ -4,6 +4,8 @@ exports.up = function(knex) {
     table.text('make').notNullable();
     table.text('model').notNullable();
     table.text('plate').notNullable();
+    table.decimal('list_price_amount', 15, 2).notNullable();
+    table.text('list_price_currency').notNullable();
     table.boolean('rented').notNullable();
     table.integer('rental_id');
   }).createTable('rentals', function(table) {

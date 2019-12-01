@@ -2,5 +2,6 @@
 
 module.exports = [
   require('./index.get'),
-  require('./cars.get')
+  require('./cars.get'),
+  require('./price.get')
 ];
