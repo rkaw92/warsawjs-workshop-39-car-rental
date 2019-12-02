@@ -37,7 +37,6 @@ module.exports.seed = async function(knex) {
   ]);
   await knex('rentals').insert([
     {
-      rental_id: 1,
       car_id: 3,
       start: new Date(),
       end: new Date(Date.now() + DAY_MS),

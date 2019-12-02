@@ -12,6 +12,9 @@ const DAY_MS = 60 * 60 * 24 * 1000;
  */
 function calculateRentalPriceByListPrice(listPriceAmount, listPriceCurrency, start, end) {
   const days = Math.ceil((end.getTime() - start.getTime()) / DAY_MS);
+  if (days <= 0) {
+    throw new Error(`Invalid rental duration: ${days} days`);
+  }
   return {
     price: {
       amount: days * listPriceAmount,

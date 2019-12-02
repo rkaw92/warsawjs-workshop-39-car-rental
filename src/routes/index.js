@@ -3,5 +3,6 @@
 module.exports = [
   require('./index.get'),
   require('./cars.get'),
-  require('./price.get')
+  require('./price.get'),
+  require('./rentals.post')
 ];

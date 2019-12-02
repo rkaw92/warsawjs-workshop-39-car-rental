@@ -2,6 +2,7 @@
 
 const fastify = require('fastify');
 const helmet = require('fastify-helmet');
+const formbody = require('fastify-formbody');
 const pov = require('point-of-view');
 const ejs = require('ejs');
 const staticPlugin = require('fastify-static');
@@ -11,6 +12,8 @@ const routes = require('./routes');
 const app = fastify();
 // Add a security middleware:
 app.register(helmet);
+// Enable parsing of application/x-www-form-urlencoded:
+app.register(formbody);
 // Add templating support for response.view support:
 app.register(pov, {
   engine: {

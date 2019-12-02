@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Price quotation - J.S. Holiday car rentals</title>
+    <title>Rental summary - J.S. Holiday car rentals</title>
     <%- include('head') %>
   </head>
   <body>
     <main>
-      <h1>Price calculation result</h1>
+      <h1>Rental contract started!</h1>
       <p>Generated <%= timestamp.toString() %></p>
       <section>
         <h2>Car details</h2>
@@ -29,19 +29,7 @@
         </table>
       </section>
       <section>
-        <h2>Start rental</h2>
-        <form action="/rentals" method="post" class="pure-form pure-form-stacked">
-          <input type="hidden" name="car_id" value="<%= car.car_id %>" />
-          <input type="hidden" name="date_start" value="<%= rental.start.toISOString() %>" />
-          <input type="hidden" name="date_end" value="<%= rental.end.toISOString() %>" />
-          <fieldset>
-            <legend>Customer information</legend>
-            <label>Full name<input type="text" name="customer_name" required /></label>
-            <label>Age<input type="number" min="16" max="999" step="1" name="customer_age" required /></label>
-            <label>E-mail<input type="text" name="customer_email" required /></label>
-          </fieldset>
-          <button>Start contract</button>
-        </form>
+        <p>Thank you for using J.S. Holiday car rentals - the leader in cars &amp; design patterns!</p>
       </section>
     </main>
   </body>
