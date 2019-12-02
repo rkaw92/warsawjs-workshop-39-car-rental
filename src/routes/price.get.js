@@ -2,6 +2,7 @@
 
 const db = require('../db');
 const DAY_MS = 60 * 60 * 24 * 1000;
+const listPrice = require('../strategies/listPrice');
 
 module.exports = function(app) {
   app.get('/price', {
@@ -18,23 +19,19 @@ module.exports = function(app) {
     }
   }, async function(request, reply) {
     const car_id = request.query.car_id;
-    const date_start = new Date(request.query.date_start);
-    const date_end = new Date(request.query.date_end);
+    const start = new Date(request.query.date_start);
+    const end = new Date(request.query.date_end);
     const car = await db('cars')
       .first()
       .where({ car_id: car_id });
     if (!car) {
       return Promise.reject(new Error('No entry found for car: ' + car_id));
     }
-    const days = Math.ceil((date_end.getTime() - date_start.getTime()) / DAY_MS);
-    const price = {
-      amount: days * car.list_price_amount,
-      currency: car.list_price_currency
-    };
+    const { price, days } = listPrice(car.list_price_amount, car.list_price_currency, start, end);
     reply.view('price', {
       car,
       price,
-      rental: { date_start, date_end, days },
+      rental: { start, end, days },
       timestamp: new Date()
     });
   });

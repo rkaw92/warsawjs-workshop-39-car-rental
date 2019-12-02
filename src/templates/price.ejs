@@ -21,8 +21,8 @@
         <h2>Rental details</h2>
         <table class="pure-table">
           <tbody>
-            <tr><td>Pick-up</td><td><%= rental.date_start.toString() %></td></tr>
-            <tr><td>Drop-off</td><td><%= rental.date_end.toString() %></td></tr>
+            <tr><td>Pick-up</td><td><%= rental.start.toString() %></td></tr>
+            <tr><td>Drop-off</td><td><%= rental.end.toString() %></td></tr>
             <tr><td>Days billable</td><td><%= rental.days %></td></tr>
             <tr><td>Total price</td><td><%= price.amount %>&nbsp;<%= price.currency %></td></tr>
           </tbody>
