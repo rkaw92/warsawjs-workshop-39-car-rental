@@ -4,7 +4,7 @@ const ValueObject = require('./ValueObject');
 const want = require('want-type');
 
 class DateRange extends ValueObject {
-  constructor(start, end) {
+  constructor({ start, end }) {
     start = new Date(start);
     end = new Date(end);
     want('start', start, want.Date());

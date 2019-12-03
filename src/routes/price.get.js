@@ -21,7 +21,7 @@ module.exports = function(app) {
     }
   }, async function(request, reply) {
     const car_id = request.query.car_id;
-    const dateRange = new DateRange(request.query.date_start, request.query.date_end);
+    const dateRange = new DateRange({ start: request.query.date_start, end: request.query.date_end });
     const car = await db('cars')
       .first()
       .where({ car_id: car_id });

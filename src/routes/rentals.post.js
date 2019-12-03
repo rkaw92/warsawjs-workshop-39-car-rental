@@ -26,7 +26,7 @@ module.exports = function(app) {
     const car_id = request.body.car_id;
     // For sake of exercise's simplicity, we start the rental at this moment.
     // Otherwise, we'd have to deal with a separate pick-up operation.
-    const dateRange = new DateRange(request.body.date_start, request.body.date_end);
+    const dateRange = new DateRange({ start: request.body.date_start, end: request.body.date_end });
     const { car, price, days } = await db.transaction(async function(transaction) {
       const car = await transaction('cars')
         .first()
