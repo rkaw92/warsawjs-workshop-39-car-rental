@@ -37,7 +37,8 @@
     "pino": "^5.14.0",
     "pino-pretty": "^3.4.0",
     "point-of-view": "^3.7.0",
-    "sqlite3": "^4.1.0"
+    "sqlite3": "^4.1.0",
+    "want-type": "^1.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.1"
