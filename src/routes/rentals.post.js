@@ -3,6 +3,7 @@
 const db = require('../db');
 const listPrice = require('../strategies/listPrice');
 const DateRange = require('../types/DateRange');
+const Money = require('../types/Money');
 
 module.exports = function(app) {
   app.post('/rentals', {
@@ -36,7 +37,8 @@ module.exports = function(app) {
       if (car.rented) {
         throw new Error('This car is already rented');
       }
-      const { price, days } = listPrice(car.list_price_amount, car.list_price_currency, dateRange);
+      const basePrice = new Money({ amount: car.list_price_amount, currency: car.list_price_currency });
+      const { price, days } = listPrice(basePrice, dateRange);
       // Actually save the rental contract and mark the car as taken:
       const [ rental_id ] = await transaction('rentals')
         .insert({
