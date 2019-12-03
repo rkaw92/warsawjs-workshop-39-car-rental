@@ -14,6 +14,7 @@
             <th>Plate</th>
             <th>Taken?</th>
             <th>Availability:</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -24,10 +25,18 @@
               <td><%= car.plate %></td>
               <td><%= car.rented ? 'taken' : 'free' %></td>
               <td><%= car.rented ? (new Date(car.rental_end).toString()) : '--' %></td>
+              <td>
+                <% if (car.rented) { %>
+                  <form class="pure-form end_rental" action="/rentals/<%= car.rental_id %>/end" method="post"><button>End rental</button></form>
+                <% } else { %>
+                  <form class="pure-form start_rental"><input type="hidden" name="car_id" value="<%= car.car_id %>" /><button>Start rental</button></form>
+                <% } %>
+              </td>
             </tr>
           <% } %>
         </tbody>
       </table>
     </main>
+    <script src="/public/cars.js"></script>
   </body>
 </html>

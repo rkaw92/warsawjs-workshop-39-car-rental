@@ -17,7 +17,7 @@ exports.up = function(knex) {
   }).raw(
     'CREATE VIEW cars_with_status AS ??',
     knex('cars')
-      .select('make', 'model', 'plate', 'rented', 'cars.rental_id', 'rentals.start AS rental_start', 'rentals.end AS rental_end', 'active AS rental_active')
+      .select('cars.car_id', 'make', 'model', 'plate', 'rented', 'cars.rental_id', 'rentals.start AS rental_start', 'rentals.end AS rental_end', 'active AS rental_active')
       .leftJoin('rentals', 'cars.rental_id', 'rentals.rental_id')
   );
 };

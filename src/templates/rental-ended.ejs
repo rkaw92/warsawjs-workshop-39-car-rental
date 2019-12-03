@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rental ended - J.S. Holiday car rentals</title>
+    <%- include('head') %>
+  </head>
+  <body>
+    <main>
+      <h1>Rental contract ended</h1>
+      <p>Generated <%= timestamp.toString() %></p>
+      <% if (typeof car === 'object' && car) { %>
+        <section>
+          <h2>Car details</h2>
+          <table class="pure-table">
+            <tbody>
+              <tr><td>Make</td><td><%= car.make %></td></tr>
+              <tr><td>Model</td><td><%= car.model %></td></tr>
+            </tbody>
+          </table>
+        </section>
+      <% } %>
+      <% if (typeof rental === 'object' && rental) { %>
+        <section>
+          <h2>Rental details</h2>
+          <table class="pure-table">
+            <tbody>
+              <tr><td>Pick-up</td><td><%= rental.start.toString() %></td></tr>
+              <tr><td>Drop-off</td><td><%= rental.end.toString() %></td></tr>
+              <tr><td>Total</td><td><%= rental.total_amount %> <%= rental.total_currency %></td></tr>
+            </tbody>
+          </table>
+        </section>
+      <% } %>
+      <section>
+        <p>Thank you for using J.S. Holiday car rentals - the leader in cars &amp; design patterns!</p>
+      </section>
+      <p><a href="/cars">Back to car listing</a></p>
+    </main>
+  </body>
+</html>
