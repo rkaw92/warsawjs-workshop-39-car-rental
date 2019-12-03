@@ -41,7 +41,9 @@ module.exports.seed = async function(knex) {
       car_id: 3,
       start: new Date(),
       end: new Date(Date.now() + DAY_MS),
-      active: true
+      active: true,
+      price_amount: 120,
+      price_currency: 'USD'
     }
   ]);
 };

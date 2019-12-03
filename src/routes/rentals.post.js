@@ -43,7 +43,9 @@ module.exports = function(app) {
           car_id: car_id,
           start: start,
           end: end,
-          active: true
+          active: true,
+          price_amount: price.amount,
+          price_currency: price.currency
         }, [ 'rental_id' ]);
       await transaction('cars')
         .update({ rented: true, rental_id: rental_id })

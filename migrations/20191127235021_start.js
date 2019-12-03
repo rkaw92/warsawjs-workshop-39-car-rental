@@ -8,12 +8,15 @@ exports.up = function(knex) {
     table.text('list_price_currency').notNullable();
     table.boolean('rented').notNullable();
     table.integer('rental_id');
+    table.text('policy');
   }).createTable('rentals', function(table) {
     table.increments('rental_id').notNullable().primary();
     table.integer('car_id').notNullable();
     table.timestamp('start').notNullable();
     table.timestamp('end').notNullable();
     table.boolean('active').notNullable();
+    table.decimal('price_amount', 15, 2).notNullable();
+    table.text('price_currency').notNullable();
   }).raw(
     'CREATE VIEW cars_with_status AS ??',
     knex('cars')
