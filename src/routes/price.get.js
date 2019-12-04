@@ -1,12 +1,11 @@
 'use strict';
 
-const db = require('../db');
 const DAY_MS = 60 * 60 * 24 * 1000;
 const listPrice = require('../strategies/listPrice');
 const DateRange = require('../types/DateRange');
 const Money = require('../types/Money');
 
-module.exports = function(app) {
+module.exports = function(app, { db }) {
   app.get('/price', {
     schema: {
       query: {

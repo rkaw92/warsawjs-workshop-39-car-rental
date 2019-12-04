@@ -10,6 +10,7 @@ const path = require('path');
 const routes = require('./routes');
 
 const app = fastify();
+const db = require('./db');
 // Add a security middleware:
 app.register(helmet);
 // Enable parsing of application/x-www-form-urlencoded:
@@ -33,7 +34,7 @@ app.register(staticPlugin, {
 
 // The routes are actually route-registering functions. Call each of them:
 for (let installRoute of routes) {
-  installRoute(app);
+  installRoute(app, { db });
 }
 
 module.exports = app;
