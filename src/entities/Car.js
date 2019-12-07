@@ -48,7 +48,7 @@ class Car {
     return this._rentalID;
   }
 
-  rent(rentalID) {
+  rent(rentalID, customerAge) {
     if (this.isRented()) {
       throw new Error('This car is already rented');
     }

@@ -35,7 +35,7 @@ module.exports = function(app, { db }) {
       // Actually save the rental contract and mark the car as taken:
       const rental = await rentals.start(car_id, dateRange, offer.price);
       const rental_id = rental.getID();
-      const car = await cars.rent(car_id, rental_id);
+      const car = await cars.rent(car_id, rental_id, { age: request.body.customer_age });
       return { car, price: offer.price, days: offer.days };
     });
     reply.view('rental-started', {

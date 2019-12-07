@@ -32,7 +32,8 @@ module.exports.seed = async function(knex) {
       list_price_amount: 120,
       list_price_currency: 'USD',
       rented: true,
-      rental_id: 1
+      rental_id: 1,
+      policy: 'fast'
     }
   ]);
   await knex('rentals').insert([

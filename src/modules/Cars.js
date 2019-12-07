@@ -17,10 +17,10 @@ class Cars {
     return { car, price, days };
   }
 
-  async rent(carID, rentalID) {
+  async rent(carID, rentalID, customerData) {
     const mapper = new CarMapper({ db: this._db });
     const car = await mapper.find({ ID: carID });
-    car.rent(rentalID);
+    car.rent(rentalID, customerData);
     await mapper.update(car);
     return car;
   }

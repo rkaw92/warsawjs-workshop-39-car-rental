@@ -1,6 +1,7 @@
 'use strict';
 
 const Car = require('../entities/Car');
+const FastCar = require('../entities/FastCar');
 const Money = require('../types/Money');
 
 class CarMapper {
@@ -8,7 +9,9 @@ class CarMapper {
     this._db = db;
   }
   fromRowData(data) {
-    const instance = new Car({
+    const classToConstruct = this.getCarClass(data);
+    console.log('*** class of car to construct: %s', classToConstruct.name);
+    const instance = new classToConstruct({
       carID: data.car_id,
       created: true,
       make: data.make,
@@ -19,6 +22,15 @@ class CarMapper {
       rentalID: data.rentalID
     });
     return instance;
+  }
+  getCarClass(data) {
+    switch (String(data.policy)) {
+      case 'fast':
+        return FastCar;
+      case 'null':
+      default:
+        return Car;
+    }
   }
   toRowData(car) {
     return {
