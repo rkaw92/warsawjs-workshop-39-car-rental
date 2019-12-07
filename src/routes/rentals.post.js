@@ -4,6 +4,7 @@ const listPrice = require('../strategies/listPrice');
 const DateRange = require('../types/DateRange');
 const Money = require('../types/Money');
 const Cars = require('../modules/Cars');
+const Rentals = require('../modules/Rentals');
 
 module.exports = function(app, { db }) {
   app.post('/rentals', {
@@ -29,17 +30,11 @@ module.exports = function(app, { db }) {
     const dateRange = new DateRange({ start: request.body.date_start, end: request.body.date_end });
     const { car, price, days } = await db.transaction(async function(transaction) {
       const cars = new Cars({ db: transaction });
+      const rentals = new Rentals({ db: transaction });
       const offer = await cars.getOffer(car_id, dateRange);
       // Actually save the rental contract and mark the car as taken:
-      const [ rental_id ] = await transaction('rentals')
-        .insert({
-          car_id: car_id,
-          start: dateRange.start,
-          end: dateRange.end,
-          active: true,
-          price_amount: offer.price.amount,
-          price_currency: offer.price.currency
-        }, [ 'rental_id' ]);
+      const rental = await rentals.start(car_id, dateRange, offer.price);
+      const rental_id = rental.getID();
       const car = await cars.rent(car_id, rental_id);
       return { car, price: offer.price, days: offer.days };
     });
