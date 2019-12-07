@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon -e .js,.ejs,.json server.js",
     "db": "knex migrate:latest && knex seed:run",
-    "test": "echo \"No test specified\" && exit 1"
+    "test": "echo \"No test specified\" && exit 1",
+    "dump": "node src/tools/dump-db.js"
   },
   "repository": {
     "type": "git",
