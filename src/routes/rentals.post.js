@@ -3,6 +3,7 @@
 const listPrice = require('../strategies/listPrice');
 const DateRange = require('../types/DateRange');
 const Money = require('../types/Money');
+const Cars = require('../modules/Cars');
 
 module.exports = function(app, { db }) {
   app.post('/rentals', {
@@ -27,17 +28,8 @@ module.exports = function(app, { db }) {
     // Otherwise, we'd have to deal with a separate pick-up operation.
     const dateRange = new DateRange({ start: request.body.date_start, end: request.body.date_end });
     const { car, price, days } = await db.transaction(async function(transaction) {
-      const car = await transaction('cars')
-        .first()
-        .where({ car_id: car_id }).forUpdate();
-      if (!car) {
-        throw new Error('No entry found for car: ' + car_id);
-      }
-      if (car.rented) {
-        throw new Error('This car is already rented');
-      }
-      const basePrice = new Money({ amount: car.list_price_amount, currency: car.list_price_currency });
-      const { price, days } = listPrice(basePrice, dateRange);
+      const cars = new Cars({ db: transaction });
+      const offer = await cars.getOffer(car_id, dateRange);
       // Actually save the rental contract and mark the car as taken:
       const [ rental_id ] = await transaction('rentals')
         .insert({
@@ -45,13 +37,11 @@ module.exports = function(app, { db }) {
           start: dateRange.start,
           end: dateRange.end,
           active: true,
-          price_amount: price.amount,
-          price_currency: price.currency
+          price_amount: offer.price.amount,
+          price_currency: offer.price.currency
         }, [ 'rental_id' ]);
-      await transaction('cars')
-        .update({ rented: true, rental_id: rental_id })
-        .where({ car_id: car_id });
-      return { car, price, days };
+      const car = await cars.rent(car_id, rental_id);
+      return { car, price: offer.price, days: offer.days };
     });
     reply.view('rental-started', {
       car,

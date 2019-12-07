@@ -16,6 +16,22 @@ class Cars {
     const { price, days } = listPrice(basePrice, dateRange);
     return { car, price, days };
   }
+
+  async rent(carID, rentalID) {
+    const mapper = new CarMapper({ db: this._db });
+    const car = await mapper.find({ ID: carID });
+    car.rent(rentalID);
+    await mapper.update(car);
+    return car;
+  }
+
+  async endRental(carID) {
+    const mapper = new CarMapper({ db: this._db });
+    const car = await mapper.find({ ID: carID });
+    car.endRental();
+    await mapper.update(car);
+    return car;
+  }
 }
 
 module.exports = Cars;

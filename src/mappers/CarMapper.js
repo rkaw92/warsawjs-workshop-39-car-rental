@@ -29,7 +29,7 @@ class CarMapper {
       list_price_amount: car.getListPrice().amount,
       list_price_currency: car.getListPrice().currency,
       rented: car.isRented(),
-      rentalID: car.getRentalID()
+      rental_id: car.getRentalID()
     };
   }
   async find({ ID: carID }) {
@@ -41,6 +41,13 @@ class CarMapper {
       return Promise.reject(new Error('No entry found for car: ' + carID));
     }
     return this.fromRowData(carRow);
+  }
+  async update(car) {
+    const data = this.toRowData(car);
+    if (!car.getID()) {
+      throw new Error('No ID - cannot update car');
+    }
+    return await this._db('cars').update(data).where({ car_id: car.getID() });
   }
 }
 

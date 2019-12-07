@@ -47,6 +47,22 @@ class Car {
   getRentalID() {
     return this._rentalID;
   }
+
+  rent(rentalID) {
+    if (this.isRented()) {
+      throw new Error('This car is already rented');
+    }
+    this._rented = true;
+    this._rentalID = rentalID;
+  }
+
+  endRental() {
+    if (!this.isRented()) {
+      throw new Error('This car is not currently rented');
+    }
+    this._rented = false;
+    this._rentalID = null;
+  }
 }
 
 module.exports = Car;
