@@ -16,6 +16,7 @@ const config = require('./config');
 const Cars = require('./modules/Cars');
 const Rentals = require('./modules/Rentals');
 const CommandProcessor = require('./modules/CommandProcessor');
+const listPrice = require('./strategies/listPrice');
 
 // init:
 const app = fastify({
@@ -25,7 +26,7 @@ const doWork = function(workFunction) {
   return db.transaction(async function(transaction) {
     const domain = {
       // New, unified API:
-      commands: new CommandProcessor({ db: transaction, config: config })
+      commands: new CommandProcessor({ db: transaction, pricing: listPrice })
     };
     return await workFunction(domain);
   });
