@@ -2,15 +2,17 @@
 
 const Money = require('../types/Money');
 const listPrice = require('../strategies/listPrice');
+const CarMapper = require('../mappers/CarMapper');
 
 class Cars {
-  constructor({ finder }) {
-    this.finder = finder;
+  constructor({ db }) {
+    this._db = db;
   }
 
   async getOffer(carID, dateRange) {
-    const car = await this.finder.findByID(carID);
-    const basePrice = new Money({ amount: car.list_price_amount, currency: car.list_price_currency });
+    const mapper = new CarMapper({ db: this._db });
+    const car = await mapper.find({ ID: carID });
+    const basePrice = car.getListPrice()
     const { price, days } = listPrice(basePrice, dateRange);
     return { car, price, days };
   }

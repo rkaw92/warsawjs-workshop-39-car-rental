@@ -12,10 +12,8 @@ const path = require('path');
 const routes = require('./routes');
 const db = require('./db');
 // logic:
-const CarFinder = require('./modules/CarFinder');
 const Cars = require('./modules/Cars');
-const carFinder = new CarFinder(db);
-const cars = new Cars({ finder: carFinder });
+const cars = new Cars({ db });
 
 // init:
 const app = fastify();

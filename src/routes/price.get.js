@@ -1,6 +1,7 @@
 'use strict';
 
 const DateRange = require('../types/DateRange');
+const CarMapper = require('../mappers/CarMapper');
 
 module.exports = function(app, { cars }) {
   app.get('/price', {
