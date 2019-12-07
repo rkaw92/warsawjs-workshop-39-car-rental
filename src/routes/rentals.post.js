@@ -6,7 +6,7 @@ const Money = require('../types/Money');
 const Cars = require('../modules/Cars');
 const Rentals = require('../modules/Rentals');
 
-module.exports = function(app, { db }) {
+module.exports = function(app, { doWork }) {
   app.post('/rentals', {
     schema: {
       body: {
@@ -28,9 +28,7 @@ module.exports = function(app, { db }) {
     // For sake of exercise's simplicity, we start the rental at this moment.
     // Otherwise, we'd have to deal with a separate pick-up operation.
     const dateRange = new DateRange({ start: request.body.date_start, end: request.body.date_end });
-    const { car, price, days } = await db.transaction(async function(transaction) {
-      const cars = new Cars({ db: transaction });
-      const rentals = new Rentals({ db: transaction });
+    const { car, price, days } = await doWork(async function({ cars, rentals }) {
       const offer = await cars.getOffer(car_id, dateRange);
       // Actually save the rental contract and mark the car as taken:
       const rental = await rentals.start(car_id, dateRange, offer.price);

@@ -11,14 +11,24 @@ const path = require('path');
 // application dependencies:
 const routes = require('./routes');
 const db = require('./db');
+const config = require('./config');
 // logic:
 const Cars = require('./modules/Cars');
-const cars = new Cars({ db });
+const Rentals = require('./modules/Rentals');
 
 // init:
 const app = fastify({
   logger: true
 });
+const doWork = function(workFunction) {
+  return db.transaction(async function(transaction) {
+    const domain = {
+      cars: new Cars({ db: transaction, config: config }),
+      rentals: new Rentals({ db: transaction, config: config })
+    };
+    return await workFunction(domain);
+  });
+};
 // Add a security middleware:
 app.register(helmet);
 // Enable parsing of application/x-www-form-urlencoded:
@@ -42,7 +52,7 @@ app.register(staticPlugin, {
 
 // The routes are actually route-registering functions. Call each of them:
 for (let installRoute of routes) {
-  installRoute(app, { db, cars });
+  installRoute(app, { doWork, db });
 }
 
 module.exports = app;

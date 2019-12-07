@@ -2,7 +2,7 @@
 
 const DateRange = require('../types/DateRange');
 
-module.exports = function(app, { cars }) {
+module.exports = function(app, { doWork }) {
   app.get('/price', {
     schema: {
       query: {
@@ -18,7 +18,9 @@ module.exports = function(app, { cars }) {
   }, async function(request, reply) {
     const carID = request.query.car_id;
     const dateRange = new DateRange({ start: request.query.date_start, end: request.query.date_end });
-    const { car, price, days } = await cars.getOffer(carID, dateRange);
+    const { car, price, days } = await doWork(function({ cars }) {
+      return cars.getOffer(carID, dateRange);
+    });
     reply.view('price', {
       car,
       price,
