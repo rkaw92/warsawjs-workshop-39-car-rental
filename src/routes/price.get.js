@@ -18,8 +18,8 @@ module.exports = function(app, { doWork }) {
   }, async function(request, reply) {
     const carID = request.query.car_id;
     const dateRange = new DateRange({ start: request.query.date_start, end: request.query.date_end });
-    const { car, price, days } = await doWork(function({ cars }) {
-      return cars.getOffer(carID, dateRange);
+    const { car, price, days } = await doWork(function({ commands }) {
+      return commands.getOffer(carID, dateRange);
     });
     reply.view('price', {
       car,

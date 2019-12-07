@@ -28,13 +28,12 @@ module.exports = function(app, { doWork }) {
     // For sake of exercise's simplicity, we start the rental at this moment.
     // Otherwise, we'd have to deal with a separate pick-up operation.
     const dateRange = new DateRange({ start: request.body.date_start, end: request.body.date_end });
-    const { car, price, days } = await doWork(async function({ cars, rentals }) {
-      const offer = await cars.getOffer(car_id, dateRange);
-      // Actually save the rental contract and mark the car as taken:
-      const rental = await rentals.start(car_id, dateRange, offer.price);
-      const rental_id = rental.getID();
-      const car = await cars.rent(car_id, rental_id, { age: request.body.customer_age });
-      return { car, price: offer.price, days: offer.days };
+    const { car, price, days } = await doWork(async function({ commands }) {
+      return await commands.rent({
+        carID: car_id,
+        duration: dateRange,
+        customerData: { age: request.body.customer_age }
+      });
     });
     reply.view('rental-started', {
       car,
