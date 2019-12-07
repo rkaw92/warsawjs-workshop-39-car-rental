@@ -10,7 +10,6 @@ class CarMapper {
   }
   fromRowData(data) {
     const classToConstruct = this.getCarClass(data);
-    console.log('*** class of car to construct: %s', classToConstruct.name);
     const instance = new classToConstruct({
       carID: data.car_id,
       created: true,
