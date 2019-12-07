@@ -15,7 +15,7 @@ class CarRowGateway {
     for (let key of fields) {
       rowData[key] = this[key];
     }
-    return await this._db.update(rowData).where({
+    return await this._db('cars').update(rowData).where({
       car_id: this.car_id
     });
   }
