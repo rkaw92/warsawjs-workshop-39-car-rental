@@ -16,7 +16,9 @@ const Cars = require('./modules/Cars');
 const cars = new Cars({ db });
 
 // init:
-const app = fastify();
+const app = fastify({
+  logger: true
+});
 // Add a security middleware:
 app.register(helmet);
 // Enable parsing of application/x-www-form-urlencoded:
