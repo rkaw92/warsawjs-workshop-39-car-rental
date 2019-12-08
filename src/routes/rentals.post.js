@@ -1,11 +1,10 @@
 'use strict';
 
-const db = require('../db');
 const listPrice = require('../strategies/listPrice');
 const Money = require('../types/Money');
 const DateRange = require('../types/DateRange');
 
-module.exports = function (app) {
+module.exports = function (app, {db}) {
     app.post('/rentals', {
         schema: {
             body: {
