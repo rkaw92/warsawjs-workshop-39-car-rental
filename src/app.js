@@ -8,6 +8,7 @@ const ejs = require('ejs');
 const staticPlugin = require('fastify-static');
 const path = require('path');
 const routes = require('./routes');
+const db = require('./db')
 
 const app = fastify({
   logger: true
@@ -31,11 +32,11 @@ app.register(pov, {
 app.register(staticPlugin, {
   root: path.resolve(__dirname, '..', 'public'),
   prefix: '/public/'
-})
+});
 
 // The routes are actually route-registering functions. Call each of them:
 for (let installRoute of routes) {
-  installRoute(app);
+  installRoute(app, {db});
 }
 
 module.exports = app;
