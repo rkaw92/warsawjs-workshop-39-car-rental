@@ -32,7 +32,10 @@ module.exports = function(app, { db }) {
       const commands = new CommandHandler({ db: transaction });
       const { car, price, days } = await commands.startRental(
         car_id,
-        new DateRange({ start, end })
+        new DateRange({ start, end }),
+        {
+          age: request.body.customer_age
+        }
       );
       return { car, price, days };
     });

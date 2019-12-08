@@ -26,7 +26,7 @@ class CommandHandler {
     return { price, days, car };
   }
 
-  async startRental(carID, duration) {
+  async startRental(carID, duration, customerData) {
     const cars = new CarMapper({ db: this._db });
     const rentals = new RentalMapper({ db: this._db });
     const car = await cars.find({ ID: carID });
@@ -37,7 +37,7 @@ class CommandHandler {
     const rental = new Rental();
     rental.start(carID, duration, price);
     await rentals.insert(rental);
-    car.rent(rental.getID());
+    car.rent(rental.getID(), customerData);
     await cars.update(car);
     return { car, price, days };
   }
