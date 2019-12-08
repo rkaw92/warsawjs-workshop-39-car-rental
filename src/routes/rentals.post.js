@@ -3,6 +3,7 @@
 const listPrice = require('../strategies/listPrice');
 const Money = require('../types/Money');
 const DateRange = require('../types/DateRange');
+const Cars = require('../modules/cars');
 
 module.exports = function (app, {db}) {
     app.post('/rentals', {
@@ -27,6 +28,7 @@ module.exports = function (app, {db}) {
         // Otherwise, we'd have to deal with a separate pick-up operation.
         const start = new Date(request.body.date_start);
         const end = new Date(request.body.date_end);
+        const cars = new Cars({db});
         const {car, price, days} = await db.transaction(async function (transaction) {
             const car = await transaction('cars')
                 .first()

@@ -15,7 +15,7 @@ class DateRange extends ValueObject {
         start = new Date(start);
         end = new Date (end);
 
-        if (isNan(start.getTime()) || isNan (end.getTime())) {
+        if (isNaN(start.getTime()) || isNaN (end.getTime())) {
 
             throw new TypeError('start or end is invalid');
 
